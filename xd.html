@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VL Accesorios - Tienda en línea</title>
+    <link rel="stylesheet" href="xd.css">
+
+
+    <!-- Lista de Productos -->
+    <section id="productos">
+        <h2>Productos</h2>
+        <div class="product-list">
+            <!-- Producto de ejemplo -->
+            <div class="product">
+                <h3>Dragon Ball Racing Blast para PS3</h3>
+                <img src="./imagenes/descarga (1).jpeg" alt="Dragon Ball Racing Blast">
+                <p class="price">$55,999</p>
+                <button onclick="addToCart(this, 'Dragon Ball Racing Blast', 55999)">Agregar al carrito</button>
+
+                <h3>Sonic Adventure 2 para PC</h3>
+                <img src="./imagenes/descarga (2).jpeg" alt="Sonic Adventure 2">
+                <p class="price">$15,999</p>
+                <button onclick="addToCart(this, 'Sonic Adventure 2', 15999)">Agregar al carrito</button>
+
+                <h3>Super Smash Bros para PC</h3>
+                <img src="./imagenes/En esta portada nos quiere dejar claro el eslogan del juego, ya que aparecen muchísimos más personajes que en ninguna otra portada, y otra vez los protagonistas son los clásicos y más famosos de todos_.jpeg" alt="Super Smash Bros">
+                <p class="price">$35,999</p>
+                <button onclick="addToCart(this, 'Super Smash Bros', 35999)">Agregar al carrito</button>
+
+                <h3>Fifa 17</h3>
+                <img src="./imagenes/Fifa 17 no te quedes sin el !!.jpeg">
+                <p class="price">$18,999</p>
+                <button onclick="addToCart(this, 'Minecraft', 25999)">Agregar al carrito</button>
+
+                <h3>Gta V </h3>
+                <img src="./imagenes/Grand Theft Auto V.jpeg">
+                <p class="price">$45,999</p>
+                <button onclick="addToCart(this, 'Minecraft', 25999)">Agregar al carrito</button>
+
+                <h3>Dragon ball fighter z</h3>
+                <img src="./imagenes/Dragon Ball Figther Z.jpeg">
+                <p class="price">$15,999</p>
+                <button onclick="addToCart(this, 'Minecraft', 25999)">Agregar al carrito</button>
+
+                <h3>Sonic generations</h3>
+                <img src="./imagenes/descarga (3).jpeg">
+                <p class="price">$5,999</p>
+                <button onclick="addToCart(this, 'Minecraft', 25999)">Agregar al carrito</button>
+
+                <h3>Postal 2</h3>
+                <img src="./imagenes/descarga (4).jpeg">
+                <p class="price">$4,699</p>
+                <button onclick="addToCart(this, 'Minecraft', 25999)">Agregar al carrito</button>
+
+                <h3>Naruto Ultimate Ninja 3</h3>
+                <img src="./imagenes/725b72ef-ab4f-435c-9651-85398413725a.jpeg">
+                <p class="price">$6,899</p>
+                <button onclick="addToCart(this, 'Minecraft', 25999)">Agregar al carrito</button>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal del Carrito -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <div id="cartItems"></div>
+            <p>Total: <span id="cartTotal">$0.00</span></p>
+            <button onclick="checkout()">Pagar</button>
+        </div>
+    </div>
+
+    <script src="xd.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VL Accesorios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/76e20a326e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky z-10 top-0 w-full">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold text-gray-800">VL Accesorios</div>
+                <ul class="flex space-x-6 text-gray-600 relative">
+                    <li><a href="../index.html" class="hover:text-gray-800">Inicio</a></li>
+                    <li><a href="#" class="border-b-4 border-indigo-500 pb-[.3rem] hover:text-gray-800">Tienda</a></li>
+                    <li><a href="./promo.html" class="hover:text-gray-800">Ofertas</a></li>
+                    <li><a href="./contacto.html" class="hover:text-gray-800">Contacto</a></li>
+                    <li class="absolute -right-[2.5rem] -top-[0.7rem] bg-black p-3 rounded-lg">
+                        <button onclick="abrirCarrito()" class="hover:text-gray-800">
+                            <i class="fa-solid fa-bag-shopping text-white"></i>
+                        </button>
+                        <span id="countCard" class="absolute hidden w-[2rem] h-[2rem] rounded-lg bg-red-800 text-white text-2xl scale-50 flex justify-center -right-4 top-6"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carrito -->
+    <div id="modalCarrito" class="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 hidden">
+        <div class="bg-white w-96 rounded-lg shadow-lg p-6">
+            <h2 class="text-lg font-bold text-gray-800">Carrito de Compras</h2>
+            <div id="contenidoCarrito" class="mt-4 space-y-4">
+                <!-- Aquí se cargarán los productos del carrito -->
+            </div>
+            <p class="mt-4 font-bold">Total: $<span id="totalCarrito">0</span></p>
+            <button onclick="cerrarCarrito()" class="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded">Cerrar Carrito</button>
+            <button onclick="finalizarCompra()" class="mt-4 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded">Comprar</button>
+        </div>
+    </div>
+
+    <!-- Productos -->
+    <section class="container mx-auto mt-10">
+        <div id="productos" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="border p-4">
+                <img src="./imagenes de prueba/Captura de pantalla -2024-02-06 12-43-24.png" alt="remera" class="w-full h-32 object-cover">
+                <h3 class="mt-2 font-bold">Remera</h3>
+                <p class="text-gray-600">Precio: $10000</p>
+                <div class="flex items-center mt-2 space-x-2">
+                    <button onclick="addToCart('Remera', 10000)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded">Agregar al carrito</button>
+                </div>
+            </div>
+            <div class="border p-4">
+                <img src="./imagenes de prueba/Captura de pantalla -2024-02-06 12-39-14.png" alt="pulsera" class="w-full h-32 object-cover">
+                <h3 class="mt-2 font-bold">Pulsera</h3>
+                <p class="text-gray-600">Precio: $2000</p>
+                <div class="flex items-center mt-2 space-x-2">
+                    <button onclick="addToCart('Pulsera', 2000)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-200 py-8 mt-6">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between">
+                <div>
+                    <h4 class="font-bold text-lg">VL Accesorios</h4>
+                    <p class="mt-2">Tu tienda de confianza para las mejores ofertas.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg">Enlaces útiles</h4>
+                    <ul class="mt-2 space-y-2">
+                        <li><a href="#" class="hover:underline">Política de Privacidad</a></li>
+                        <li><a href="#" class="hover:underline">Términos y Condiciones</a></li>
+                        <li><a href="#" class="hover:underline">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg">Síguenos</h4>
+                    <div class="mt-2 flex space-x-4">
+                        <a href="#"><img src="https://via.placeholder.com/24" alt="Facebook"></a>
+                        <a href="#"><img src="https://via.placeholder.com/24" alt="Instagram"></a>
+                        <a href="#"><img src="https://via.placeholder.com/24" alt="Twitter"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let carrito = [];
+
+        function abrirCarrito() {
+            document.getElementById("modalCarrito").classList.remove("hidden");
+            mostrarCarrito();
+        }
+
+        function cerrarCarrito() {
+            document.getElementById("modalCarrito").classList.add("hidden");
+        }
+
+        function addToCart(nombre, precio) {
+            const productoExistente = carrito.find(item => item.nombre === nombre);
+
+            if (productoExistente) {
+                productoExistente.cantidad++;
+            } else {
+                carrito.push({ nombre, precio, cantidad: 1 });
+            }
+
+            actualizarContador();
+            mostrarCarrito();
+        }
+
+        function mostrarCarrito() {
+            const contenidoCarrito = document.getElementById("contenidoCarrito");
+            contenidoCarrito.innerHTML = "";
+
+            carrito.forEach((producto, index) => {
+                contenidoCarrito.innerHTML += `
+                    <div class="flex justify-between items-center">
+                        <p>${producto.nombre} - $${producto.precio}</p>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="actualizarCantidad(${index}, -1)" class="bg-gray-300 px-2 rounded">-</button>
+                            <span>${producto.cantidad}</span>
+                            <button onclick="actualizarCantidad(${index}, 1)" class="bg-gray-300 px-2 rounded">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            actualizarTotal();
+        }
+
+        function actualizarCantidad(index, delta) {
+            carrito[index].cantidad += delta;
+            if (carrito[index].cantidad < 1) {
+                carrito.splice(index, 1);
+            }
+
+            mostrarCarrito();
+            actualizarContador();
+        }
+
+        function actualizarContador() {
+            const countCard = document.getElementById("countCard");
+            const totalCantidad = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+            countCard.textContent = totalCantidad;
+            countCard.classList.toggle("hidden", totalCantidad === 0);
+        }
+
+        function actualizarTotal() {
+            const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+            document.getElementById("totalCarrito").textContent = total;
+        }
+
+        function finalizarCompra() {
+            Swal.fire({
+                title: 'Compra finalizada',
+                text: 'Gracias por tu compra!',
+                icon: 'success',
+                confirmButtonText: 'Cerrar'
+            });
+            carrito = [];
+            cerrarCarrito();
+            actualizarContador();
+        }
+    </script>
+</body>
+</html>
